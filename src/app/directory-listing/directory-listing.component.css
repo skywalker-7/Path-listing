@@ -1,0 +1,48 @@
+.page{
+        margin-left: 50px;
+        margin-right: 50px;
+}
+
+.fields{
+        width: 300px;
+        border-radius: 3px;
+        border: solid 1px #d4d9e2;
+        font-size: 16px;
+        font-weight:500;
+        height: 35px;
+
+
+}
+.fields:hover{
+      box-shadow: 0px 0px 1px 1px#e3fbea;  
+}
+.button{
+        width: 80px;
+        color: #59B37B;
+        border-radius: 6px;
+        background-color:  #0A2139;
+        font-weight: 500;
+        font-size: 16px;
+
+}
+.button:hover{
+      color: #0A2139; 
+      background-color:#e3fbea;
+        
+}
+
+ tr.clickable:hover {
+        cursor: pointer;
+} 
+
+.table-hover  tr.clickable:hover td {
+        background-color:#e3fbea;
+}
+
+:host ::ng-deep .pagination .page-item.active .page-link {
+        background-color: #59B37B;
+        border-color:#59B37B
+
+}:host ::ng-deep .pagination .page-item .page-link {
+       color: #0A2139;
+}

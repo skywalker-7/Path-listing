@@ -1,0 +1,77 @@
+<div class="page">
+  <div class="input-selection">
+    <h4 class="mb-3">Directory Listing</h4>
+    <input
+      type="text"
+      class="fields"
+      [(ngModel)]="directoryPath"
+      placeholder="Enter directory path."
+    /><br />
+    <button class="button my-3" (click)="getDirectoryListing()">Search</button>
+  </div>
+  <h5 *ngIf="files.length" class="my-3">Search Results({{ totalItems }})</h5>
+  <table
+    class="table table-hover --bs-table-hover-bg-white"
+    *ngIf="files.length"
+  >
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Path</th>
+        <th scope="col">Size</th>
+        <th scope="col">Extension</th>
+        <th scope="col">Created Date</th>
+        <th scope="col">Directory</th>
+        <th scope="col">Permissions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let file of files"
+        [class.clickable]="file.isDirectory"
+        (click)="file.isDirectory && getDirectoryListing(file.path)"
+      >
+        <td scope="row">
+          <img src=" {{ svgSelector(file) }}" /> {{ file.name }}
+        </td>
+        <td>{{ file.path }}</td>
+        <td>{{ file.size }}</td>
+        <td>{{ file.extension }}</td>
+        <td>{{ dateTimeFormatter(file.createdDate) }}</td>
+        <td>{{ file.isDirectory ? "Yes" : "No" }}</td>
+        <td>
+          Readable: {{ file.permissions.readable ? "Yes" : "No" }} | Writable:
+          {{ file.permissions.writable ? "Yes" : "No" }} | Executable:
+          {{ file.permissions.executable ? "Yes" : "No" }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="files.length">
+    <label for="itemsPerPageSelect">Items per Page:</label>
+    <select
+      id="itemsPerPageSelect"
+      [(ngModel)]="itemsPerPage"
+      (change)="changeItemsPerPage($event)"
+    >
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
+
+    <pagination
+      class="justify-content-end"
+      *ngIf="files.length"
+      [boundaryLinks]="true"
+      [totalItems]="totalItems"
+      [(ngModel)]="currentPage"
+      [id]="'custom-pagination-id'"
+      [itemsPerPage]="itemsPerPage"
+      (pageChanged)="changePage($event)"
+    >
+    </pagination>
+  </div>
+</div>
